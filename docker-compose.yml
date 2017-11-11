@@ -9,10 +9,10 @@ services:
     network_mode: "bridge"
     volumes:
       - ./prometheus/:/etc/prometheus/
-      - ./data/prometheus:/prometheus
+      #- ./data/prometheus:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
+      #- '--storage.tsdb.path=/prometheus'
       #- '--alertmanager.url=http://alertmanager:27840'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
