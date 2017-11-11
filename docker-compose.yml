@@ -20,6 +20,7 @@ services:
       - 37828:9090
     links:
       - cadvisor:cadvisor
+      - node-exporter:node-exporter
       - alertmanager:alertmanager
     depends_on:
       - cadvisor
