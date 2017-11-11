@@ -5,6 +5,6 @@ receivers:
     - name: 'slack'
       slack_configs:
           - send_resolved: true
-            username: '<username>'
-            channel: '#<channel-name>'
-            api_url: '<incomming-webhook-url>'
+            username: 'jsongo0'
+            channel: '#alert0'
+            api_url: 'https://hooks.slack.com/services/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'
