@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+
+  prometheus:
+    image: prom/prometheus
+    #restart: always
+    network_mode: "bridge"
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - .data/prometheus:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      #- '--alertmanager.url=http://alertmanager:27840'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 37828:9090
+    links:
+      - cadvisor:cadvisor
+      - alertmanager:alertmanager
+    depends_on:
+      - cadvisor
+
+  alertmanager:
+    network_mode: "bridge"
+    image: prom/alertmanager
+    ports:
+      - 27840:9093
+    volumes:
+      - ./alertmanager/:/etc/alertmanager/
+    #restart: always
+    command:
+      - '-config.file=/etc/alertmanager/config.yml'
+      - '-storage.path=/alertmanager'
+
+  cadvisor:
+    image: google/cadvisor
+    network_mode: "bridge"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - 33899:8080
+    #restart: always
+
+  grafana:
+    image: grafana/grafana
+    network_mode: "bridge"
+    depends_on:
+      - prometheus
+    ports:
+      - 49501:3000
+    volumes:
+      - .data/grafana:/var/lib/grafana
+    env_file:
+      - config.monitoring
