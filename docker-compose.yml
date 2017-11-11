@@ -58,3 +58,18 @@ services:
       - .data/grafana:/var/lib/grafana
     env_file:
       - config.monitoring
+
+  log-exporter:
+    image: debian
+    network_mode: "bridge"
+    external_links:
+        - "consul:consul"
+    depends_on:
+      - prometheus
+    ports:
+      - 19523:4040
+    command: /nginx-log-exporter -config-file /nginx-logs-config.hcl
+    volumes:
+      - ../nginx-log-exporter:/nginx-log-exporter
+      - ./nginx-logs-config.hcl:/nginx-logs-config.hcl
+      - /var/log/nginx:/var/log/nginx
