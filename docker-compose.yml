@@ -5,10 +5,11 @@ services:
   prometheus:
     image: prom/prometheus
     #restart: always
+    container_name: prometheus
     network_mode: "bridge"
     volumes:
       - ./prometheus/:/etc/prometheus/
-      - .data/prometheus:/prometheus
+      - ./data/prometheus:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -25,6 +26,7 @@ services:
 
   alertmanager:
     network_mode: "bridge"
+    container_name: alertmanager
     image: prom/alertmanager
     ports:
       - 27840:9093
@@ -37,6 +39,7 @@ services:
 
   cadvisor:
     image: google/cadvisor
+    container_name: cadvisor
     network_mode: "bridge"
     volumes:
       - /:/rootfs:ro
@@ -49,13 +52,16 @@ services:
 
   grafana:
     image: grafana/grafana
+    container_name: grafana
     network_mode: "bridge"
     depends_on:
       - prometheus
     ports:
       - 49501:3000
+    links:
+      - prometheus:prometheus
     volumes:
-      - .data/grafana:/var/lib/grafana
+      - ./data/grafana:/var/lib/grafana
     env_file:
       - config.monitoring
 
