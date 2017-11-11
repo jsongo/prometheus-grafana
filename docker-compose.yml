@@ -23,6 +23,20 @@ services:
       - alertmanager:alertmanager
     depends_on:
       - cadvisor
+  node-exporter:
+    image: prom/node-exporter
+    network_mode: "bridge"
+    volumes:
+      - /proc:/host/proc
+      - /sys:/host/sys
+      - /:/rootfs
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    ports:
+      - 9100:9100
+    # restart: always
 
   alertmanager:
     network_mode: "bridge"
