@@ -25,6 +25,7 @@ services:
       - cadvisor
   node-exporter:
     image: prom/node-exporter
+    container_name: node-exporter
     network_mode: "bridge"
     volumes:
       - /proc:/host/proc
@@ -35,7 +36,7 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
     ports:
-      - 9100:9100
+      - 29100:9100
     # restart: always
 
   alertmanager:
@@ -79,17 +80,18 @@ services:
     env_file:
       - config.monitoring
 
-  log-exporter:
-    image: debian
-    network_mode: "bridge"
-    external_links:
-        - "consul:consul"
-    depends_on:
-      - prometheus
-    ports:
-      - 19523:4040
-    command: /nginx-log-exporter -config-file /nginx-logs-config.hcl
-    volumes:
-      - ../nginx-log-exporter:/nginx-log-exporter
-      - ./nginx-logs-config.hcl:/nginx-logs-config.hcl
-      - /var/log/nginx:/var/log/nginx
+  # log-exporter:
+  #   image: debian
+  #   container_name: log-exporter
+  #   network_mode: "bridge"
+  #   external_links:
+  #       - "consul:consul"
+  #   depends_on:
+  #     - prometheus
+  #   ports:
+  #     - 19523:4040
+  #   command: /nginx-log-exporter -config-file /nginx-logs-config.hcl
+  #   volumes:
+  #     - ../nginx-log-exporter:/nginx-log-exporter
+  #     - ./nginx-logs-config.hcl:/nginx-logs-config.hcl
+  #     - /var/log/nginx:/var/log/nginx
