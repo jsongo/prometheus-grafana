@@ -17,8 +17,8 @@ alerting:
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
-  # - "alert.rules"
-  - "nginx.rules"
+  - "alert.rules"
+  # - "nginx.rules"
   # - "first.rules"
   # - "second.rules"
 
