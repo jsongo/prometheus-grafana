@@ -93,8 +93,8 @@ services:
     volumes:
       - ./caddy/:/etc/caddy/
     environment:
-      - ADMIN_USER=${ADMIN_USER:-admin}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - ADMIN_USER=${ADMIN_USER:-jsongo}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-PyBuTGysZ8kLPK}
     restart: unless-stopped
     links:
       - alertmanager:alertmanager
