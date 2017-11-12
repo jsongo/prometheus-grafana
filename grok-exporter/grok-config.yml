@@ -3,11 +3,14 @@ input:
     path: /log/access.log
     readall: true
 grok:
-    patterns_dir: /patterns
+    patterns_dir: /data/patterns
+    additional_patterns:
+    - 'NGUSERNAME [a-zA-Z\.\@\-\+_%]+'
+    - 'NGUSER %{NGUSERNAME}'
 metrics:
     - type: counter
       name: grok_nginx
       help: Metrics for nginx.
-      match: "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\""
+      match: "%{IPORHOST:clientip} (?:%{NGUSER:ident}|-) (?:%{NGUSER:auth}|-) [%{HTTPDATE:timestamp}] \"(?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|-)\" %{NUMBER:status} (?:%{NUMBER:bytes}|-) (?:\"(?:%{URI:referrer}|-)\"|%{QS:referrer}) \"%{QS:agent}\""
 server:
     port: 9145

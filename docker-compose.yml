@@ -111,7 +111,6 @@ services:
     volumes:
       - /var/log/nginx:/log
       - ./grok-exporter:/data
-      - ./data/grok:/patterns
     command: /data/grok_exporter -config /data/grok-config.yml
     restart: unless-stopped
   # log-exporter:
