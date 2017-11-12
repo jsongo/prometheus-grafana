@@ -5,29 +5,29 @@ groups:
     expr: absent(container_memory_usage_bytes{name="ngbook-tool-api"})
     for: 5s
     annotations:
-      summary: Instance down
+      summary: ngbook.api alert
       description: ngbook-tool-api is down.
   - alert: ngbook-people-api
     expr: absent(container_memory_usage_bytes{name="ngbook-people-api"})
     for: 5s
     annotations:
-      summary: Instance down
+      summary: ngbook.api alert
       description: ngbook-people-api is down.
   - alert: ngbook-fruit-api2
     expr: absent(container_memory_usage_bytes{name="ngbook-fruit-api2"})
     for: 5s
     annotations:
-      summary: Instance down
+      summary: ngbook.api alert
       description: ngbook-fruit-api2 is down.
   - alert: ngbook-fruit-api
     expr: absent(container_memory_usage_bytes{name="ngbook-fruit-api"})
     for: 5s
     annotations:
-      summary: Instance down
+      summary: ngbook.api alert
       description: ngbook-fruit-api is down.
   - alert: ngbook-api-proxy
     expr: absent(container_memory_usage_bytes{name="ngbook-api-proxy"})
     for: 5s
     annotations:
-      summary: Instance down
+      summary: ngbook.api alert
       description: ngbook-api-proxy is down.
