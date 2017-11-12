@@ -19,6 +19,7 @@ alerting:
 rule_files:
   # - "alert.rules.yml"
   - "nginx.rules.yml"
+  - "api.rules.yml"
   - "node.rules.yml"
   # - "first.rules"
   # - "second.rules"

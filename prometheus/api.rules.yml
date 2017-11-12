@@ -1,0 +1,9 @@
+groups:
+- name: ngbook.api.rules
+  rules:
+  - alert: ngbook-api
+    expr: absent(container_memory_usage_bytes{name="ngbook-people-api"})
+    for: 30s
+    annotations:
+      summary: ngbook-api down
+      description: ngbook-api is down. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}.
