@@ -13,12 +13,13 @@ alerting:
   alertmanagers:
     - static_configs:
       - targets:
-        - alertmanager:27840
+        - alertmanager:9093
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
   # - "alert.rules.yml"
   - "nginx.rules.yml"
+  - "node.rules.yml"
   # - "first.rules"
   # - "second.rules"
 
