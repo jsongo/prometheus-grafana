@@ -1,0 +1,24 @@
+groups:
+- name: nginx.rules
+  rules:
+  - alert: nginx_down
+    expr: absent(container_memory_usage_bytes{name="nginx"})
+    for: 30s
+    annotations:
+      summary: Nginx down
+      description: Nginx container is down for more than 30 seconds.
+  - alert: nginx_high_cpu
+    expr: sum(rate(container_cpu_usage_seconds_total{name="nginx"}[1m])) / count(node_cpu{mode="system"}) * 100 > 10
+    for: 30s
+    labels:
+        severity: warning
+    annotations:
+      summary: Nginx high CPU usage
+      description: Nginx CPU usage is {{ humanize $value}}%.
+  - alert: nginx_high_memory
+    expr: sum(container_memory_usage_bytes{name="nginx"}) > 1200000000
+    for: 30s
+    labels:
+        severity: warning
+    annotations:
+      summary: Nginx memory consumption is at {{ humanize $value}}.
