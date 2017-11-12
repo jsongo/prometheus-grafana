@@ -100,7 +100,7 @@ services:
     links:
       - alertmanager:alertmanager
       - prometheus:prometheus
-      - caddy:caddy
+      - cadvisor:cadvisor
       - node-exporter:node-exporter
 
   # log-exporter:
