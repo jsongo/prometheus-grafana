@@ -91,7 +91,7 @@ services:
       - "29100:9100"
       - "27840:9093"
     volumes:
-      - ./data/caddy/:/etc/caddy/
+      - ./caddy/:/etc/caddy/
     environment:
       - ADMIN_USER=${ADMIN_USER:-admin}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
