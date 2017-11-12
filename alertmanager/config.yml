@@ -4,7 +4,8 @@ route:
 receivers:
     - name: 'slack'
       slack_configs:
-          - send_resolved: true
-            username: 'jsongo'
-            channel: '#alert0'
-            api_url: 'https://hooks.slack.com/services/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'
+        - send_resolved: true
+          text: "<h2>{{ .CommonAnnotations.description }}</h2><br/>{{ .CommonAnnotations.description }}"
+          username: 'jsongo'
+          channel: '#alert0'
+          api_url: 'https://hooks.slack.com/services/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'
