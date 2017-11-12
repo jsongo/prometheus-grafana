@@ -1,9 +1,33 @@
 groups:
 - name: ngbook.api.rules
   rules:
-  - alert: ngbook-api
+  - alert: ngbook-tool-api
+    expr: absent(container_memory_usage_bytes{name="ngbook-tool-api"})
+    for: 30s
+    annotations:
+      summary: Instance {{ $labels.instance }} down
+      description: ngbook-tool-api is down. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}.
+  - alert: ngbook-people-api
     expr: absent(container_memory_usage_bytes{name="ngbook-people-api"})
     for: 30s
     annotations:
-      summary: ngbook-api down
-      description: ngbook-api is down. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}.
+      summary: Instance {{ $labels.instance }} down
+      description: ngbook-people-api is down. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}.
+  - alert: ngbook-fruit-api2
+    expr: absent(container_memory_usage_bytes{name="ngbook-fruit-api2"})
+    for: 30s
+    annotations:
+      summary: Instance {{ $labels.instance }} down
+      description: ngbook-fruit-api2 is down. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}.
+  - alert: ngbook-fruit-api
+    expr: absent(container_memory_usage_bytes{name="ngbook-fruit-api"})
+    for: 30s
+    annotations:
+      summary: Instance {{ $labels.instance }} down
+      description: ngbook-fruit-api is down. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}.
+  - alert: ngbook-api-proxy
+    expr: absent(container_memory_usage_bytes{name="ngbook-api-proxy"})
+    for: 30s
+    annotations:
+      summary: Instance {{ $labels.instance }} down
+      description: ngbook-api-proxy is down. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}.
