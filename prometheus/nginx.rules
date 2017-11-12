@@ -1,0 +1,26 @@
+ALERT jenkins_down
+  IF absent(container_memory_usage_bytes{name="nginx"})
+  FOR 30s
+  LABELS { severity = "critical" }
+  ANNOTATIONS {
+    summary= "Nginx down",
+    description= "Nginx container is down for more than 30 seconds."
+  }
+
+ALERT jenkins_high_cpu
+  IF sum(rate(container_cpu_usage_seconds_total{name="nginx"}[1m])) / count(node_cpu{mode="system"}) * 100 > 10
+  FOR 30s
+  LABELS { severity = "warning" }
+  ANNOTATIONS {
+    summary= "Nginx high CPU usage",
+    description= "Nginx CPU usage is {{ humanize $value}}%."
+  }
+
+ALERT jenkins_high_memory
+  IF sum(container_memory_usage_bytes{name="nginx"}) > 1200000000
+  FOR 30s
+  LABELS { severity = "warning" }
+  ANNOTATIONS {
+      summary = "Nginx high memory usage",
+      description = "Nginx memory consumption is at {{ humanize $value}}.",
+  }
