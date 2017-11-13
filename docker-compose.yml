@@ -21,7 +21,7 @@ services:
     links:
       - cadvisor:cadvisor
       - node-exporter:node-exporter
-      - grok-exporter:grok-exporter
+      # - grok-exporter:grok-exporter
       - alertmanager:alertmanager
     depends_on:
       - cadvisor
