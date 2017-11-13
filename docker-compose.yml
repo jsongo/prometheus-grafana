@@ -104,15 +104,16 @@ services:
       - cadvisor:cadvisor
       - node-exporter:node-exporter
 
-  grok-exporter:
-    image: debian
-    container_name: grok-exporter
-    network_mode: "bridge"
-    volumes:
-      - /var/log/nginx:/log
-      - ./grok-exporter:/data
-    command: /data/grok_exporter -config /data/grok-config.yml
-    restart: unless-stopped
+  # grok-exporter:
+  #   image: debian
+  #   container_name: grok-exporter
+  #   network_mode: "bridge"
+  #   volumes:
+  #     - /var/log/nginx:/log
+  #     - ./grok-exporter:/data
+  #   command: /data/grok_exporter -config /data/grok-config.yml
+  #   restart: unless-stopped
+
   # log-exporter:
   #   image: debian
   #   container_name: log-exporter
