@@ -23,7 +23,7 @@ services:
     links:
       - cadvisor:cadvisor
       - node-exporter:node-exporter
-      # - grok-exporter:grok-exporter
+      - nginx-vts-exporter:nginx-vts-exporter
       - alertmanager:alertmanager
     depends_on:
       - cadvisor
@@ -89,11 +89,9 @@ services:
     image: sophos/nginx-vts-exporter
     container_name: nginx-vts-exporter
     network_mode: "bridge"
-    external_links:
-      - nginx:nginx
     environment:
-      - METRICS_ADDR=9890
-      - NGINX_HOST=http://nginx
+      - METRICS_ADDR=:9890
+      - NGINX_HOST=http://gfn.techzto.com
 
   caddy:
     image: stefanprodan/caddy
